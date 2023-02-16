@@ -7,8 +7,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.annotations.AfterSuite;
@@ -34,9 +32,6 @@ public class Base {
 		if (browserName.equals("chrome")) {
 			System.setProperty("webdriver.chrome.driver",
 					System.getProperty("user.dir") + "/src/main/resources/chromedriver");
-			ChromeOptions options = new ChromeOptions();
-			driver = new ChromeDriver(options);
-
 		} else if (browserName.equals("firefox")) {
 			System.setProperty("webdriver.gecko.driver",
 					System.getProperty("user.dir") + "/src/main/resources/resources/geckodriver");
@@ -48,7 +43,6 @@ public class Base {
 		} else {
 			System.out.println(browserName + " is not a valid browser");
 		}
-
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		Set<Cookie> cookiesList = driver.manage().getCookies();
