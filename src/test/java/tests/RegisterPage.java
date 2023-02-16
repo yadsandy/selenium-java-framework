@@ -43,7 +43,7 @@ public class RegisterPage extends Base {
 		commonActions.navigateTo(prop.getProperty("url"));
 	}
 
-	@Test(priority = 0, description = "This method is to check the vlaid scenarios for register page")
+	@Test(priority = 0, description = "This method is to check the valid scenarios for register page")
 	public void performResgistrationWithValidCredentials() throws IOException, FilloException {
 		// get data from excel sheet for TC5
 		data = new Utils().getTestData("register", "TC6");
@@ -56,7 +56,7 @@ public class RegisterPage extends Base {
 		log.info("Successfully Registered");
 	}
 
-	@Test(priority = 1, description = "This method is to check all the invlaid scenarios for register page")
+	@Test(priority = 1, description = "This method is to check all the invalid scenarios for register page")
 	public void performResgistrationWithInvalidCredentials() throws IOException, FilloException {
 		// get data from excel sheet for TC1
 		data = new Utils().getTestData("register", "TC1");

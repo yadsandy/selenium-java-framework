@@ -39,7 +39,7 @@ public class LoginPage extends Base {
 		commonActions.navigateTo(prop.getProperty("url"));
 	}
 
-	@Test(priority = 0, description = "This method is to check the vlaid scenarios for login page")
+	@Test(priority = 0, description = "This method is to check the valid scenarios for login page")
 	public void performLoginWithValidCredentials() throws IOException, FilloException {
 		// get data from excel sheet for TC5
 		data = new Utils().getTestData("login","TC5");
@@ -50,7 +50,7 @@ public class LoginPage extends Base {
 		log.info("Successfully Logged In");
 	}
 
-	@Test(priority = 1, description = "This method is to check all the invlaid scenarios for login page")
+	@Test(priority = 1, description = "This method is to check all the invalid scenarios for login page")
 	public void performLoginWithInvalidCredentials() throws IOException, FilloException {
 		// get data from excel sheet for TC1
 		data = new Utils().getTestData("login","TC1");
