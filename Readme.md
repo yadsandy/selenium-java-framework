@@ -1,14 +1,25 @@
-# SeleniumAsiansFramework
+# Web Automation Using Selenium & Java
+This project defines the automation of a  portal with selenium tool and java language
 
-This is a selenium java framework based on MAC OS. For windows, you need to do the changes the path format in case of windows OS.
-Pre-requisites for MAC OS:
-1. Java >=8
-2. Eclipse
-3. TestNg
-4. Maven
+## Prerequisites for the project
 
-Steps to execute the Suite:
-1. Import the project into the eclipse and resolve any error dependency if occurs.
-2. Open testng.xml and run it. It contains 2 Test Classes (Logiin and Register).
+1. Java and set JAVA_HOME
+2. Maven and set MAVEN_HOME
+3. IDE (preferred: IntelliJ)
 
-If you have any questions contact me on linkedIn https://www.linkedin.com/in/yadsandy/
+
+## Execution of Test Cases
+
+1. Open testng.xml, update and run it. 
+2. If you want to run using terminal use these commands: 
+
+    * To run the test suite for chrome platform
+
+      `mvn clean test -Pchrome`
+    * To run the test suite for firefox platform
+
+      `mvn clean test -Pfirefox`
+    * To run the test suite for firefox platform
+
+      `mvn clean test -Pedge`
+

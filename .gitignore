@@ -1,6 +1,3 @@
+.idea/
 /target/
-/test-output/
-.settings/
-Screenshots/
-.classpath
-.project
+/reports/

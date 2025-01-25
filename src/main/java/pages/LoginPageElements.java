@@ -1,71 +1,61 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-
 import utils.CommonActions;
 
-public class LoginPageElements {
+public class LoginPageElements extends CommonActions {
 
-	public WebDriver driver;
-	public CommonActions commonActions;
+    public By forgotPassword_Txt = By.xpath("//h1[@id='kc-page-title']");
+    // All objects should be defined here
+    private By email_Txt = By.id("username");
+    private By password_Txt = By.id("password");
+    private By login_Btn = By.cssSelector("#kc-login");
+    private By remeberMe_Btn = By.id("rememberMe");
+    private By forgotPassword_Lbl = By.linkText("Forgot Password?");
+    private By errorMsg = By.cssSelector("#input-error");
+    private By backToLogin_Btn = By.linkText("« Back to Login");
+    private By register_Btn = By.linkText("Register");
 
-	public LoginPageElements(WebDriver driver) {
-		this.driver = driver;
-		commonActions = new CommonActions(driver);
-	}
+    // To fill the login form using email and password and click on sign in button
+    public void completeLoginForm(String email, String password) {
+        Assert.assertTrue(checkElementIsDisplayed(remeberMe_Btn));
+        Assert.assertTrue(checkElementIsDisplayed(forgotPassword_Lbl));
+        clearFieldAndEnterText(email_Txt, email);
+        clearFieldAndEnterText(password_Txt, password);
+        click(login_Btn);
+    }
 
-	// All objects should be defined here
-	private By email_Txt = By.id("username");
-	private By password_Txt = By.id("password");
-	private By login_Btn = By.cssSelector("#kc-login");
-	private By remeberMe_Btn = By.id("rememberMe");
-	private By forgotPassword_Lbl = By.linkText("Forgot Password?");
-	private By errorMsg = By.cssSelector("#input-error");
-	public By forgotPassword_Txt = By.xpath("//h1[@id='kc-page-title']");
-	private By backToLogin_Btn = By.linkText("« Back to Login");
-	private By register_Btn = By.linkText("Register");
+    // To check error message in case of invalid login credentials.
+    public void checkErrorMessageForInvalidLogin(String error) {
+        Assert.assertTrue(checkElementIsDisplayed(errorMsg));
+        Assert.assertTrue(compareText(errorMsg, error));
+    }
 
-	// To fill the login form using email and password and click on sign in button
-	public void completeLoginForm(String email, String password) {
-		Assert.assertTrue(commonActions.checkElementIsDisplayed(remeberMe_Btn));
-		Assert.assertTrue(commonActions.checkElementIsDisplayed(forgotPassword_Lbl));
-		commonActions.clearFieldAndEnterText(email_Txt, email);
-		commonActions.clearFieldAndEnterText(password_Txt, password);
-		commonActions.click(login_Btn);
-	}
+    // verify the forgot password page
+    public void checkForgotPasswordPage() {
+        click(forgotPassword_Lbl);
+        Assert.assertTrue(checkElementIsDisplayed(forgotPassword_Txt));
+    }
 
-	// To check error message in case of invalid login credentials.
-	public void checkErrorMessageForInvalidLogin(String error) {
-		Assert.assertTrue(commonActions.checkElementIsDisplayed(errorMsg));
-		Assert.assertTrue(commonActions.compareText(errorMsg, error));
-	}
+    // go back to login screen
+    public void goBackToLoginScreen() {
+        click(backToLogin_Btn);
+    }
 
-	// verify the forgot password page
-	public void checkForgotPasswordPage() {
-		commonActions.click(forgotPassword_Lbl);
-		Assert.assertTrue(commonActions.checkElementIsDisplayed(forgotPassword_Txt));
-	}
+    // checked the remember me option
+    public void clickOnRememberMe() {
+        click(remeberMe_Btn);
+    }
 
-	// go back to login screen
-	public void goBackToLoginScreen() {
-		commonActions.click(backToLogin_Btn);
-	}
+    // logged out and check the email is showing or not
+    public void checkEmailIDAfterLoggedout(String email) {
+        String emailAfterLoggedout = getText(email_Txt);
+        Assert.assertTrue(emailAfterLoggedout.equalsIgnoreCase(email));
+    }
 
-	// checked the remember me option
-	public void clickOnRememberMe() {
-		commonActions.click(remeberMe_Btn);
-	}
-
-	// logged out and check the email is showing or not
-	public void checkEmailIDAfterLoggedout(String email) {
-		String emailAfterLoggedout = commonActions.getText(email_Txt);
-		Assert.assertTrue(emailAfterLoggedout.equalsIgnoreCase(email));
-	}
-
-	public void clickOnRegister() {
-		commonActions.click(register_Btn);
-	}
+    public void clickOnRegister() {
+        click(register_Btn);
+    }
 
 }
