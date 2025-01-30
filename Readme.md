@@ -19,7 +19,7 @@ This project defines the automation of a  portal with selenium tool and java lan
     * To run the test suite for firefox platform
 
       `mvn clean test -Pfirefox`
-    * To run the test suite for firefox platform
+    * To run the test suite for edge platform
 
       `mvn clean test -Pedge`
 
