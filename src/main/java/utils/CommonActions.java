@@ -1,30 +1,32 @@
 package utils;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-
 import java.util.Random;
-
 import static driver.DriverManager.getDriver;
 
 public class CommonActions {
+     WebDriver driver;
 
-
-    public static void click(By locator) {
-        getDriver().findElement(locator).click();
+    public CommonActions(WebDriver driver) {
+        this.driver = driver;
+    }
+    public  void click(By locator) {
+       getDriver().findElement(locator).click();
     }
 
-    public static void clearFieldAndEnterText(By locator, String value) {
-        getDriver().findElement(locator).clear();
-        getDriver().findElement(locator).sendKeys(value);
+    public  void clearFieldAndEnterText(By locator, String value) {
+       getDriver().findElement(locator).clear();
+       getDriver().findElement(locator).sendKeys(value);
     }
 
-    public static void navigateTo(String url) {
-        getDriver().get(url);
+    public  void navigateTo(String url) {
+       getDriver().get(url);
     }
 
-    public static void selectFromDropdown(WebElement dropdown, String value) {
+    public  void selectFromDropdown(WebElement dropdown, String value) {
         Select dd = new Select(dropdown);
         dd.selectByValue(value);
     }

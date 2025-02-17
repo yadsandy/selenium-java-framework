@@ -16,6 +16,9 @@ public class Constants {
     public static final int WAIT_EXPLICIT = Integer.parseInt(getConfigValue("WAIT_EXPLICIT"));
     private final static Logger logger = LogManager.getLogger();
     public static final String BROWSER = getBrowserName();
+    public static final String LOGIN ="LOGIN";
+    public static final String REGISTER ="REGISTER";
+
 
     private static String getBrowserName() {
         String platformNameFromPomXml = System.getProperty("platform");

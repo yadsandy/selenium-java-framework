@@ -1,4 +1,4 @@
-package reports;
+package utils;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -6,6 +6,7 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.aventstack.extentreports.reporter.configuration.ViewName;
+import driver.BrowserFactory;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,6 +22,7 @@ import static org.testng.ITestResult.*;
 import static utils.Constants.BROWSER;
 import static utils.PropertyReader.getConfigValue;
 
+
 public class ExtentReportService {
     public static final String FILE_SEPARATOR = File.separator;
     public static final String EXTENT_FULL_REPORT_DIRECTORY = getConfigValue("extent_full_report_dir");
@@ -31,16 +33,17 @@ public class ExtentReportService {
     public static final String PROJECT_NAME = getConfigValue("project_name");
     public static final String SCREENSHOTS_DIRECTORY = getConfigValue("extent_screenshots_dir");
     public static final String EXECUTOR = getConfigValue("test_executor");
-    public static final ExtentReports extentReports = new ExtentReports();
+    private static final ExtentReports extentReports = new ExtentReports();
     private static final Logger logger = LogManager.getLogger();
 
-    public static void initializeExtentReporter(String timestamp) {
+    public void initializeExtentReporter(String timestamp) {
         ExtentSparkReporter sparkAllTestsReporter = new ExtentSparkReporter(EXTENT_FULL_REPORT_DIRECTORY
                 + FILE_SEPARATOR + REPORT_FILE_NAME_PREFIX + timestamp + ".html")
                 .viewConfigurer()
                 .viewOrder()
                 .as(new ViewName[]{DASHBOARD, TEST, CATEGORY, EXCEPTION})
                 .apply();
+
         extentReports.attachReporter(sparkAllTestsReporter);
 
         sparkAllTestsReporter.config().setTheme(
@@ -54,10 +57,6 @@ public class ExtentReportService {
         extentReports.setSystemInfo("Application Name", PROJECT_NAME.toUpperCase());
         extentReports.setSystemInfo("Test Developer", EXECUTOR.toUpperCase());
         extentReports.setSystemInfo("Platform", BROWSER.toUpperCase());
-    }
-
-    public static void flushExtentReport() {
-        extentReports.flush();
     }
 
     public void updateExtentReport(ITestResult iTestResult, String timestamp) {
@@ -77,6 +76,21 @@ public class ExtentReportService {
                 logger.warn("Test result for the test method '{}' is unknown.", iTestResult.getMethod());
         }
 
+        addFeature(iTestResult, test);
+    }
+
+
+    private void addFeature(ITestResult iTestResult, ExtentTest extentTest) {
+        String feature = AnnotationReader.getFeatureInTestMethod(iTestResult);
+
+        if (feature != null) {
+            extentTest.assignCategory(feature);
+        }
+    }
+
+
+    public void flushExtentReport() {
+        extentReports.flush();
     }
 
     private ExtentTest appendTestInformation(ITestResult iTestResult) {
